@@ -15,7 +15,13 @@ app.add_middleware(
 )
 
 @app.get("/execute")
-def execute(q: str):
+def execute(q: str = None):
+    if not q:
+        return Response(
+            content=json.dumps({"status": "API is running"}, indent=4),
+            media_type="application/json"
+        )
+
     q = q.strip()
     result = None
 
